@@ -22,53 +22,53 @@
 
 int func (double t, const double y[], double f[], void *params);
 
-int main (void)
+int
+main (void)
 {
- size_t neqs = 2;          /* number of equations */
- double eps_abs = 1.e-8,
-   eps_rel = 0.;           /* desired precision */
- double stepsize = 1e-6;   /* initial integration step */
- double omega = 100;            /* the vibration frequency of base */
- double t = 0., t1 = 50.; /* time interval */
- double phi_init = 0.99*M_PI;
- int status;
- /*
-  * Initial conditions
-  */
- double y[2] = {phi_init, 0};
+    size_t neqs = 2;            /* number of equations */
+    double eps_abs = 1.e-8, eps_rel = 0.;       /* desired precision */
+    double stepsize = 1e-6;     /* initial integration step */
+    double omega = 100;         /* the vibration frequency of base */
+    double t = 0., t1 = 50.;    /* time interval */
+    double phi_init = 0.99 * M_PI;
+    int status;
+    /*
+     * Initial conditions
+     */
+    double y[2] = { phi_init, 0 };
 
- /*
-  * Explicit embedded Runge-Kutta-Fehlberg (4,5) method.
-  * This method is a good general-purpose integrator.
-  */
-  
- gsl_odeiv2_step    *s = gsl_odeiv2_step_alloc (gsl_odeiv2_step_rkf45,
-neqs);
- gsl_odeiv2_control *c = gsl_odeiv2_control_y_new (eps_abs, eps_rel);
- gsl_odeiv2_evolve  *e = gsl_odeiv2_evolve_alloc (neqs);
+    /*
+     * Explicit embedded Runge-Kutta-Fehlberg (4,5) method.
+     * This method is a good general-purpose integrator.
+     */
 
- gsl_odeiv2_system sys = {func, NULL, neqs, &omega};
+    gsl_odeiv2_step *s = gsl_odeiv2_step_alloc (gsl_odeiv2_step_rkf45,
+                                                neqs);
+    gsl_odeiv2_control *c = gsl_odeiv2_control_y_new (eps_abs, eps_rel);
+    gsl_odeiv2_evolve *e = gsl_odeiv2_evolve_alloc (neqs);
 
- /*
-  * Evolution loop
-  */
- while ( (t < t1) )
- {
-   status = gsl_odeiv2_evolve_apply (e, c, s, &sys, &t, t1, &stepsize, y);
+    gsl_odeiv2_system sys = { func, NULL, neqs, &omega };
 
-   if (status != GSL_SUCCESS) {
-     printf ("Troubles: % .5e  % .5e  % .5e\n",
-             t, y[0], y[1]);
-     break;
-   }
-   
-   printf ("% .5e  % .5e\n",
-           t, y[0]);                /* y[0] = phi */
- }
+    /*
+     * Evolution loop
+     */
+    while ((t < t1))
+    {
+        status =
+            gsl_odeiv2_evolve_apply (e, c, s, &sys, &t, t1, &stepsize, y);
 
- gsl_odeiv2_evolve_free (e);
- gsl_odeiv2_control_free (c);
- gsl_odeiv2_step_free (s);
+        if (status != GSL_SUCCESS)
+        {
+            printf ("Troubles: % .5e  % .5e  % .5e\n", t, y[0], y[1]);
+            break;
+        }
 
- return 0;
+        printf ("% .5e  % .5e\n", t, y[0]);     /* y[0] = phi */
+    }
+
+    gsl_odeiv2_evolve_free (e);
+    gsl_odeiv2_control_free (c);
+    gsl_odeiv2_step_free (s);
+
+    return 0;
 }
