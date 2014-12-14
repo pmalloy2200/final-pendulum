@@ -11,6 +11,9 @@ pendulum stable. Outputs plot of results.
 Omega such that the inverted pendulum is stable was found 
 to be approximately 144.72. 
 
+Omega and initial angle can be edited by changing 
+`omega` and `phi_init` in the main "pendulum.c" program.
+
 **Commands**
 
 - `./pendulum`: prints raw data

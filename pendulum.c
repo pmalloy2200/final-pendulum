@@ -4,7 +4,7 @@
  * the motion a rigid inverted pendulum, stabilized by
  * vibration of the base. 
  *
- * Here omega is the dimensionlessfrequency of vibration 
+ * Here omega is the dimensionless frequency of vibration 
  * of the base,
  * phi is the angle from vertical of the pendulum, and t 
  * is dimensionless time. 
@@ -30,11 +30,12 @@ int main (void)
  double stepsize = 1e-6;   /* initial integration step */
  double omega = 100;            /* the vibration frequency of base */
  double t = 0., t1 = 50.; /* time interval */
+ double phi_init = 0.99*M_PI;
  int status;
  /*
   * Initial conditions
   */
- double y[2] = {0.99*M_PI, 0};
+ double y[2] = {phi_init, 0};
 
  /*
   * Explicit embedded Runge-Kutta-Fehlberg (4,5) method.
@@ -62,7 +63,7 @@ neqs);
    }
    
    printf ("% .5e  % .5e\n",
-           t, y[0]);
+           t, y[0]);                /* y[0] = phi */
  }
 
  gsl_odeiv2_evolve_free (e);
