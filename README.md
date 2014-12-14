@@ -24,8 +24,9 @@ do I will update the code and repost the correct data.
 
 ##### Current Data
 **For Omega = 150**
+
 ![Plot]
-(<url>)
+(https://raw.githubusercontent.com/pmalloy2200/final-pendulum/master/pendulum.png)
 
 
 
