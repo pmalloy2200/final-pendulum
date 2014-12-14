@@ -18,5 +18,9 @@
 #Unignore .png
 !*.png
 
+#Unignore .gpl
+!*.gpl
+
+
 # Unignore markdown files
 !*.md
